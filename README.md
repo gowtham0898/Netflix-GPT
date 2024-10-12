@@ -2,6 +2,11 @@
 
 - create-react-app
 - configure tailwind
+- Header
+- Login Form
+- sign up form
+# NOTE
+- for validations use FORMIK library
 
 # features
 - Login /signup
@@ -18,3 +23,10 @@
 - Netflix gpt 
     - search Bar
     - movie suggestion
+
+
+
+# NOTES:
+ - congigure route (npm i -D react-router-dom)
+ - appRouter = createBrowserRouter
+ -  return inside div RouterProvider router ={appRouter}
