@@ -3,8 +3,17 @@
 - create-react-app
 - configure tailwind
 - Header
+- routing
 - Login Form
 - sign up form
+- form validation
+        - useRef hook
+# fire base auth
+    - google sign in // need to add email password
+
+# redux state managment 
+     set up this 
+
 # NOTE
 - for validations use FORMIK library
 
@@ -30,3 +39,10 @@
  - congigure route (npm i -D react-router-dom)
  - appRouter = createBrowserRouter
  -  return inside div RouterProvider router ={appRouter}
+
+
+
+
+ # completed 
+  - completed fire base with authentoctication
+  -  use tmdb API to fetch movie APIs
