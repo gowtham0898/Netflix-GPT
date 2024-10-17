@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { Validate } from "../utils/Validate";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { initializeApp } from "firebase/app";
  import {app} from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+ 
+import { LOGIN_BACKGROUND } from "../utils/constants";
 const Login = () => {
   const [isSignInForm, SetisSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -12,7 +12,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate();
 
   const toggleSignInform = () => {
     SetisSignInForm(!isSignInForm);
@@ -35,14 +34,11 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
    
   try {
-        const result = await signInWithPopup(auth, provider);
+        await signInWithPopup(auth, provider);
        
-        const user = result.user;
-        navigate("/browse")
+        
 
       } catch (error) {
-     
-        navigate("/")
         setErrorMessage(error.message);
       }
   }
@@ -51,8 +47,8 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/f272782d-cf96-4988-a675-6db2afd165e0/web/IN-en-20241008-TRIFECTA-perspective_b28b640f-cee0-426b-ac3a-7c000d3b41b7_large.jpg"
-          alt="logo"
+          src={LOGIN_BACKGROUND}
+          alt="background-image"
         />
       </div>
       <form

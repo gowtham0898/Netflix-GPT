@@ -8,6 +8,16 @@
 - sign up form
 - form validation
         - useRef hook
+- fire base set up
+- created redux store
+- unsubscribe to onAuthStateChanged call back
+- add constants to our APP
+- 
+
+
+
+
+
 # fire base auth
     - google sign in // need to add email password
 
@@ -42,7 +52,10 @@
 
 
 
+# bug fix
+    - when user is not loged in and if he is trying to navigate from URL(/browse) that one we blocked
+        and if he loged in and trying to go to login page via url (/login) then redirect to /browse page
 
- # completed 
+# completed 
   - completed fire base with authentoctication
   -  use tmdb API to fetch movie APIs
