@@ -12,7 +12,8 @@
 - created redux store
 - unsubscribe to onAuthStateChanged call back
 - add constants to our APP
-- 
+-  fetched URL from fanart and saved to firebase and from there we are fetching  poto URL 
+
 
 
 
@@ -46,7 +47,7 @@
 
 
 # NOTES:
- - congigure route (npm i -D react-router-dom)
+ - configure route (npm i -D react-router-dom)
  - appRouter = createBrowserRouter
  -  return inside div RouterProvider router ={appRouter}
 
@@ -58,4 +59,4 @@
 
 # completed 
   - completed fire base with authentoctication
-  -  use tmdb API to fetch movie APIs
+  -  use trakt API API to fetch movie APIs

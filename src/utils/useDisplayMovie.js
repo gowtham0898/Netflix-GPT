@@ -15,13 +15,13 @@ const useDisplayMovie = () => {
     const singleMovie = await fetch(`https://private-amnesiac-6cccdf-trakt.apiary-proxy.com/movies/${slug}?extended=full`,API_OPTIONS);
 
    const sigleJson = await singleMovie.json();
-  
+
    dispatch(addNowPlaying(sigleJson));
     }
     useEffect(() => {
         if(!movies) return;
         const mainMovie = movies[0];
-        const {slug} = mainMovie.movie.ids;
+        const {slug} = mainMovie.ids;
         displayMovie(slug);
     },[movies])
 
