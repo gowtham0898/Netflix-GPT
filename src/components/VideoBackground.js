@@ -7,7 +7,7 @@ const VideoBackground = () => {
 
   let videoId = "";
   if (movie && movie.length > 0) {
-    trailer = movie[0].trailer;
+    trailer = movie[0].videoUrl;
     const url = new URL(trailer);
     videoId = url.searchParams.get("v");
   }

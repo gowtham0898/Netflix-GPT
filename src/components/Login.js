@@ -2,13 +2,14 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { Validate } from "../utils/Validate";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
- import {app} from "../utils/firebase";
- 
+import { app } from "../utils/firebase";
 import { LOGIN_BACKGROUND } from "../utils/constants";
+import Cookies from "js-cookie";
+import { json, useNavigate } from "react-router-dom";
 const Login = () => {
   const [isSignInForm, SetisSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
@@ -16,40 +17,108 @@ const Login = () => {
   const toggleSignInform = () => {
     SetisSignInForm(!isSignInForm);
   };
-  const handelSignInButtonClick = () => {
-    const refEmail = email.current.value;
-    const refPassword = password.current.value;
-    //console.log(name);
-    
-    const refName = name.current !== null ? name.current.value : name;
-    const message = Validate(refEmail, refPassword,isSignInForm,refName);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    setErrorMessage(message);
+  const handleSignInButtonClick = async () => {
+       
+    const refEmail = email.current?.value || "";
+    const refPassword = password.current?.value || "";
+    const refName = name?.current?.value || "";
+
+    setErrorMessage("");
+    if (isSignInForm) {
+         
+      try {
+        // Fetch request to the sign-in endpoint
+        const response = await fetch(
+          `https://localhost:7263/api/Auth/login?username=${refName}&password=${refPassword}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "*/*",
+            },
+          }
+        );
+
+     
+        if (response.ok) {
+             
+          const data = await response.json();
+          console.log("Sign-in successful:", data);
+          Cookies.set("authToken", data.token, {
+            expires: 7,
+            secure: true,
+            sameSite: "Strict",
+          });
+          navigate("/browse");
+        } else {
+          const errorData = await response.json();
+          console.error("Sign-in failed:", errorData);
+          setErrorMessage("Sign-in failed. Please check your details.");
+        }
+      } catch (error) {
+        console.error("An error occurred during sign-in:", error);
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    } else {
+         
+      try {
+        // Fetch request to the sign-in endpoint
+        const response = await fetch(
+          `https://localhost:7263/api/Auth/signup`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "*/*",
+              "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({
+              username: refName,   
+              email: refEmail,     
+              password: refPassword 
+            })
+          }
+        );
+
+           
+        if (response.ok) {
+             
+          const data = await response.json();
+          console.log("Sign-up successful:", data);
+          Cookies.set("authToken", data.token, {
+            expires: 7,
+            secure: true,
+            sameSite: "Strict",
+          });
+          navigate("/browse");
+        } else {
+          const errorData = await response.json();
+          console.error("Sign-in failed:", errorData);
+          setErrorMessage("Sign-in failed. Please check your details.");
+        }
+      } catch (error) {
+        console.error("An error occurred during sign-in:", error);
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    }
   };
 
-  const handleGoogleSignInButtonClick =  async() => {
-    
-    const auth = getAuth(app);
+  // const handleGoogleSignInButtonClick = async () => {
+  //   const auth = getAuth(app);
 
-    const provider = new GoogleAuthProvider();
-   
-  try {
-        await signInWithPopup(auth, provider);
-       
-        
+  //   const provider = new GoogleAuthProvider();
 
-      } catch (error) {
-        setErrorMessage(error.message);
-      }
-  }
+  //   try {
+  //     await signInWithPopup(auth, provider);
+  //   } catch (error) {
+  //     setErrorMessage(error.message);
+  //   }
+  // };
   return (
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src={LOGIN_BACKGROUND}
-          alt="background-image"
-        />
+        <img src={LOGIN_BACKGROUND} alt="background-image" />
       </div>
       <form
         onSubmit={(e) => {
@@ -61,16 +130,17 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
-          ref={name}
             type="text"
-            placeholder="Username"
+            ref={email}
+            placeholder="Email or mobile number"
             className="p-4 my-2 w-full bg-gray-800 rounded-sm"
           />
         )}
+
         <input
+          ref={name}
           type="text"
-          ref={email}
-          placeholder="Email or mobile number"
+          placeholder="Username"
           className="p-4 my-2 w-full bg-gray-800 rounded-sm"
         />
         <input
@@ -79,18 +149,20 @@ const Login = () => {
           placeholder="Password"
           className="p-4 my-2 w-full bg-gray-800 rounded-sm"
         />
-        {errorMessage && <p className="p-2 text-sm text-red-500 font-bold">{errorMessage}</p>}
+        {errorMessage && (
+          <p className="p-2 text-sm text-red-500 font-bold">{errorMessage}</p>
+        )}
         <button
           className="p-4 my-4 bg-red-700 w-full rounded-lg"
-          onClick={handelSignInButtonClick}>
+          onClick={handleSignInButtonClick}>
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <button
+        {/* <button
           className="p-4 my-4 bg-blue-500 w-full rounded-lg"
           onClick={handleGoogleSignInButtonClick} // Google sign-in will be handled here
         >
           Sign In with Google
-        </button>
+        </button> */}
         {isSignInForm && (
           <p className="text-gray-400 py-4">
             New to Netflix?{" "}

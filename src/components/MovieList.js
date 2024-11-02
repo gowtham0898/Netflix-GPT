@@ -2,7 +2,7 @@
 import MovieCard from './MovieCard'; 
 
 const MovieList = ({ title, movies }) => {
-
+debugger
   return (
     <div className="px-6">
       <h1 className="text-3xl py-4 text-white">{title}</h1>
@@ -10,10 +10,10 @@ const MovieList = ({ title, movies }) => {
         <div className="flex space-x-4">
           {movies?.map((movie) => (
             <MovieCard
-              key={movie.ids.tmdb}
+              key={movie.id}
               tmdb={movie.ids.tmdb}
               title={movie.title}
-              url={movie.url} // Pass the fetched URL to the MovieCard
+              url={movie.photoUrl} // Pass the fetched URL to the MovieCard
             />
           ))}
         </div>

@@ -6,6 +6,7 @@ const SecondaryContainer = () => {
   const trending = useSelector((store)=> store.movies.trending[0]);
   //const populer = useSelector((store) => store.movies.popular[0]);
   const popular = useSelector((store) => store.movies.populer[0]);
+     
   return (
     // movieList popular
     // movie list trending
