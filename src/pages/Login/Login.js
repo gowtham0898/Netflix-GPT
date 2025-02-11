@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
-import Header from "./Header";
-import { Validate } from "../utils/Validate";
+import Header from "../../layout/Header";
+import { Validate } from "../../utils/validations/Validate";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { app } from "../utils/firebase";
-import { LOGIN_BACKGROUND } from "../utils/constants";
+import { app } from "../../utils/constants/firebase";
+import { LOGIN_BACKGROUND } from "../../utils/constants/constants";
 import Cookies from "js-cookie";
 import { json, useNavigate } from "react-router-dom";
+
+import { API_BASE_URL } from "../../utils/constants/constants";
+
 const Login = () => {
   const [isSignInForm, SetisSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -17,7 +20,6 @@ const Login = () => {
   const toggleSignInform = () => {
     SetisSignInForm(!isSignInForm);
   };
-  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const handleSignInButtonClick = async () => {
        
@@ -31,7 +33,7 @@ const Login = () => {
       try {
         // Fetch request to the sign-in endpoint
         const response = await fetch(
-          `https://localhost:7263/api/Auth/login?username=${refName}&password=${refPassword}`,
+          `${API_BASE_URL}Auth/login?username=${refName}&password=${refPassword}`,
           {
             method: "GET",
             headers: {

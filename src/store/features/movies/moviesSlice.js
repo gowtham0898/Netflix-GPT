@@ -20,7 +20,7 @@ const movies = createSlice({
         addPopuler : (state,action) => {
             state.populer.push(action.payload);
         }
-    }
+    }   
 })
 
 

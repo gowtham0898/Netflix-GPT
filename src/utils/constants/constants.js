@@ -13,6 +13,7 @@ export const API_OPTIONS = {
 
   export const FANART_API_KEY ="82075d993e038d08b5d966a683b3536d";
   
+  export const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 //Client ID: 47104532d058d07c0752834cd101ed23f09551a9f0504790c42d7666d6b313db
 
 //Client Secret: 61fa5a2c7d2a8b3d76c35d8546bf62961dd44fdf0b3f63cbf0e186ad0eb0b471

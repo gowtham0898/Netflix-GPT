@@ -1,11 +1,11 @@
 import { getAuth,signOut,onAuthStateChanged } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { app } from '../utils/firebase'
+import { app } from '../utils/constants/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../utils/userSlice';
-import { LOGO } from '../utils/constants'
+import { addUser, removeUser } from '../store/features/users/userSlice';
+import { LOGO } from '../utils/constants/constants'
 import Cookies from 'js-cookie';
 
 const Header = () => {

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTreanding } from "./moviesSlice";
-import { API_OPTIONS } from "./constants";
+import { addTreanding } from "../../store/features/movies/moviesSlice";
+import { API_OPTIONS } from "../constants/constants";
 
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "./firebase";
-import fetchWithAuth from "./fetchWithAuth";
+import { db } from "../constants/firebase";
+import fetchWithAuth from "../../services/fetchWithAuth";
+import { API_BASE_URL } from "../constants/constants";
 const useTreandingMovies = () => {
   const dispatch = useDispatch();
 
@@ -13,7 +14,7 @@ const useTreandingMovies = () => {
       
   try {
     const trendingMovies = await fetchWithAuth(
-      `https://localhost:7263/api/Movies/treanding`,
+      `${API_BASE_URL}Movies/treanding`,
       {
         method: "GET",
         headers: {

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addPopuler } from "./moviesSlice";
-import { API_OPTIONS, FANART_API_KEY } from "./constants";
+import { addPopuler } from "../../store/features/movies/moviesSlice";
+import { API_OPTIONS, FANART_API_KEY } from "../constants/constants";
 
 import { collection, getDocs,addDoc, query, where } from "firebase/firestore";
-import { db } from "./firebase";
-import fetchWithAuth from "./fetchWithAuth";
+import { db } from "../constants/firebase";
+import fetchWithAuth from "../../services/fetchWithAuth";
+import { API_BASE_URL } from "../constants/constants";
 
 const usePopularMovies = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const usePopularMovies = () => {
   const nowPlayingMovies = async () => {
     try {
       const populerMovies = await fetchWithAuth(
-        `https://localhost:7263/api/Movies/populer`,
+        `${API_BASE_URL}Movies/populer`,
         {
           method: "GET",
           headers: {
